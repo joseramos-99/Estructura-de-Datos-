@@ -1,0 +1,42 @@
+#include
+float bolivianosADolares(float bolivianos);
+float dolaresABolivianos(float dolares);
+
+const float TIPO_CAMBIO = 6.96;
+
+using namespace std;
+
+int main() {
+int opcion;
+float monto;
+
+cout << "CONVERSOR DE MONEDA"<<endl;
+cout << "1. Bolivianos a Dolares"<<endl;
+cout << "2. Dolares a Bolivianos"<<endl;
+cout << "Elija una opcion: ";
+cin >> opcion;
+
+if (opcion == 1) {
+    cout << "Ingrese el monto en Bolivianos: ";
+    cin >> monto;
+    cout << "Equivale a: " << bolivianosADolares(monto) << " USD"<<endl;
+}
+else if (opcion == 2) {
+    cout << "Ingrese el monto en Dolares: ";
+    cin >> monto;
+    cout << "Equivale a: " << dolaresABolivianos(monto) << " BOB"<<endl;
+}
+else {
+    cout << "Opcion no valida.";
+}
+
+return 0;
+}
+
+float bolivianosADolares(float bolivianos) {
+return bolivianos / TIPO_CAMBIO;
+}
+
+float dolaresABolivianos(float dolares) {
+return dolares * TIPO_CAMBIO;
+}
