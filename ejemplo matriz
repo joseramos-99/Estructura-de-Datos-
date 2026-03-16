@@ -1,0 +1,114 @@
+#include <iostream>
+#define MAXCOL 20
+#define MAXROW 20
+
+using namespace std;
+
+void cargar(int matrix[MAXROW][MAXCOL], int n, int m);
+void mostrar(int matrix[MAXROW][MAXCOL], int n, int m);
+void sumar(int A[MAXROW][MAXCOL], int B[MAXROW][MAXCOL], int C[MAXROW][MAXCOL], int n, int m);
+void menu();
+
+int main()
+{
+	int A[MAXROW][MAXCOL] = { 0 }, B[MAXROW][MAXCOL] = { 0 }, C[MAXROW][MAXCOL] = { 0 };
+	int op;
+	int tamrow, tamcol;
+	bool cargadaA = false, cargadaB = false;
+
+	// Pedir filas y columnas
+	do {
+		cout << "Ingrese el numero de filas: ";
+		cin >> tamrow;
+	} while ((tamrow <= 0) || (tamrow > MAXROW));
+
+	do {
+		cout << "Ingrese el numero de columnas: ";
+		cin >> tamcol;
+	} while ((tamcol <= 0) || (tamcol > MAXCOL));
+
+	do {
+		menu();
+		cin >> op;
+
+		switch (op) {
+
+		case 1:
+			cout << "\nCargar matriz A\n";
+			cargar(A, tamrow, tamcol);
+			cargadaA = true;
+			break;
+
+		case 2:
+			cout << "\nCargar matriz B\n";
+			cargar(B, tamrow, tamcol);
+			cargadaB = true;
+			break;
+
+		case 3:
+			if (!cargadaA || !cargadaB) {
+				cout << "Debe cargar ambas matrices antes de sumar.\n";
+			}
+			else {
+				cout << "\nSumando matrices...\n";
+				sumar(A, B, C, tamrow, tamcol);
+				cout << "Suma realizada y almacenada en matriz C.\n";
+			}
+			break;
+
+		case 4:
+			cout << "\nMatriz A\n";
+			mostrar(A, tamrow, tamcol);
+
+			cout << "\nMatriz B\n";
+			mostrar(B, tamrow, tamcol);
+
+			cout << "\nMatriz C (resultado)\n";
+			mostrar(C, tamrow, tamcol);
+			break;
+
+		case 5:
+			cout << "Fin del programa\n";
+			break;
+
+		default:
+			cout << "Opcion invalida\n";
+		}
+
+	} while (op != 5);
+
+	return 0;
+}
+
+void menu() {
+	cout << "\n----- MENU -----\n";
+	cout << "1. Cargar matriz A\n";
+	cout << "2. Cargar matriz B\n";
+	cout << "3. Sumar matrices\n";
+	cout << "4. Mostrar matrices\n";
+	cout << "5. Salir\n";
+	cout << "Seleccione opcion: ";
+}
+
+void cargar(int matrix[MAXROW][MAXCOL], int n, int m) {
+	for (int i = 0; i < n; i++)
+		for (int j = 0; j < m; j++) {
+			cout << "matriz [" << i + 1 << "][" << j + 1 << "]: ";
+			cin >> matrix[i][j];
+		}
+}
+
+void mostrar(int matrix[MAXROW][MAXCOL], int n, int m) {
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < m; j++) {
+			cout << matrix[i][j] << "\t";
+		}
+		cout << endl;
+	}
+}
+
+void sumar(int A[MAXROW][MAXCOL], int B[MAXROW][MAXCOL], int C[MAXROW][MAXCOL], int n, int m) {
+	for (int i = 0; i < n; i++)
+		for (int j = 0; j < m; j++)
+			C[i][j] = A[i][j] + B[i][j];
+      }
