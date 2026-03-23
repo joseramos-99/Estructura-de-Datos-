@@ -1,0 +1,56 @@
+#include <iostream>
+# include <vector.h>
+using namespace std; 
+
+void cargarVectorDeVectores(Vector v[], int n);
+void generarMatriz(Vector v[], Vector m[][MAX], int n);
+void mostrarVectorDeVectores(Vector v[], int n);
+void mostrarMatriz(Vector m[][MAX], int n);
+
+
+int main()
+{
+    int tamanio;
+    Vector vec[MAX];
+    Vector matriz[MAX][MAX];
+    do {
+        cout << "Ingrese el tamanio: ";
+        cin >> tamanio;
+    } while ((tamanio <= 0 || tamanio > MAX));
+     cargarVectorDeVectores(vec, tamanio);
+     mostrarVectorDeVectores(vec, tamanio);
+     generarMatriz(vec, matriz, tamanio)
+     mostrarMatriz(matriz, tamanio);
+
+}
+void cargarVectorDeVectores(Vector v[], int n) {
+    for (int = 0; i < n; i++) {
+        coot << "Cargando vector [" << i << "]: ";
+        v[i].cargar(n);
+    }
+}
+void generarMatriz(Vector v[], Vector m[][MAX], int n) {
+    for (int i = 0; i < ; i++) {
+        for (int j = 0; j < ; j++) {
+            n[i][j].setN(n);
+            for (int k = 0; k < n; k++) +
+                m[i][j].setDato(k, v[i].getDato(j));
+        }
+    }
+}
+void mostrarVectorDeVectores(Vector v[], int n) {
+    cout << "Mostrando vector de vectores" << endl;
+    for (int = 0; i < n; i++) {
+        coot << "V [" << i << "]: ";
+        v[i].mostrar(n);
+    }
+
+}
+void mostrarMatriz(Vector m[][MAX], int n) {
+    for (int i = 0; i < ; i++) {
+        for (int j = 0; j < ; j++) {
+            m[i][j].mostrar();
+            cout << " ";
+        }
+    }
+}
