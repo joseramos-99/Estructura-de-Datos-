@@ -1,0 +1,199 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+// Funciones
+int ContarVocales(string cadena);
+int Longitud(string cadena);
+string ExtraerParte(string cadena, int pos);
+void Intercambiar(string &a, string &b);
+bool Comparar(string a, string b);
+bool Encontrar(string cadena, char c);
+string Invertir(string cadena);
+bool EsCapicua(string cadena);
+string QuitarVocales(string cadena);
+
+int main()
+{
+    int opcion, pos;
+    char caracter;
+    string texto, texto2;
+
+    do {
+        cout << "\n===== MENU =====\n";
+        cout << "1. Contar vocales\n";
+        cout << "2. Longitud de un string\n";
+        cout << "3. Extraer una parte\n";
+        cout << "4. Intercambio de string\n";
+        cout << "5. Comparar string\n";
+        cout << "6. Encontrar caracter\n";
+        cout << "7. Invertir\n";
+        cout << "8. Determinar si es capicua\n";
+        cout << "9. Quitar vocales\n";
+        cout << "0. Salir\n";
+        cout << "Opcion: ";
+        cin >> opcion;
+
+        switch(opcion)
+        {
+        case 1:
+            cout << "Ingrese texto: ";
+            getline(cin >> ws, texto);
+            cout << "Vocales: " << ContarVocales(texto);
+            break;
+
+        case 2:
+            cout << "Ingrese texto: ";
+            getline(cin >> ws, texto);
+            cout << "Longitud: " << Longitud(texto);
+            break;
+
+        case 3:
+            cout << "Ingrese texto: ";
+            getline(cin >> ws, texto);
+            cout << "Posicion inicial: ";
+            cin >> pos;
+            cout << "Resultado: " << ExtraerParte(texto, pos);
+            break;
+
+        case 4:
+            cout << "Ingrese primer string: ";
+            getline(cin >> ws, texto);
+            cout << "Ingrese segundo string: ";
+            getline(cin >> ws, texto2);
+
+            Intercambiar(texto, texto2);
+
+            cout << "Texto1: " << texto << endl;
+            cout << "Texto2: " << texto2 << endl;
+            break;
+
+        case 5:
+            cout << "Ingrese primer string: ";
+            getline(cin >> ws, texto);
+            cout << "Ingrese segundo string: ";
+            getline(cin >> ws, texto2);
+
+            if (Comparar(texto, texto2))
+                cout << "Son iguales";
+            else
+                cout << "Son diferentes";
+            break;
+
+        case 6:
+            cout << "Ingrese texto: ";
+            getline(cin >> ws, texto);
+            cout << "Ingrese caracter: ";
+            cin >> caracter;
+
+            if (Encontrar(texto, caracter))
+                cout << "Encontrado";
+            else
+                cout << "No encontrado";
+            break;
+
+        case 7:
+            cout << "Ingrese texto: ";
+            getline(cin >> ws, texto);
+            cout << "Invertido: " << Invertir(texto);
+            break;
+
+        case 8:
+            cout << "Ingrese texto: ";
+            getline(cin >> ws, texto);
+
+            if (EsCapicua(texto))
+                cout << "Es capicua";
+            else
+                cout << "No es capicua";
+            break;
+
+        case 9:
+            cout << "Ingrese texto: ";
+            getline(cin >> ws, texto);
+            cout << "Sin vocales: " << QuitarVocales(texto);
+            break;
+
+        case 0:
+            cout << "Saliendo...";
+            break;
+
+        default:
+            cout << "Opcion invalida";
+        }
+
+        cout << endl;
+
+    } while(opcion != 0);
+
+    return 0;
+}
+
+// FUNCIONES
+
+int ContarVocales(string cadena)
+{
+    int cont = 0;
+    for (int i = 0; i < cadena.length(); i++)
+        if (cadena[i]=='a'||cadena[i]=='e'||cadena[i]=='i'||cadena[i]=='o'||cadena[i]=='u')
+            cont++;
+    return cont;
+}
+
+int Longitud(string cadena)
+{
+    return cadena.length();
+}
+
+string ExtraerParte(string cadena, int pos)
+{
+    return cadena.substr(pos, cadena.length() - pos);
+}
+
+void Intercambiar(string &a, string &b)
+{
+    string aux = a;
+    a = b;
+    b = aux;
+}
+
+bool Comparar(string a, string b)
+{
+    return a == b;
+}
+
+bool Encontrar(string cadena, char c)
+{
+    return cadena.find(c) != string::npos;
+}
+
+string Invertir(string cadena)
+{
+    string aux = cadena;
+    int n = cadena.length();
+
+    for (int i = 0; i < n/2; i++)
+    {
+        char temp = aux[i];
+        aux[i] = aux[n-1-i];
+        aux[n-1-i] = temp;
+    }
+    return aux;
+}
+
+bool EsCapicua(string cadena)
+{
+    return cadena == Invertir(cadena);
+}
+
+string QuitarVocales(string cadena)
+{
+    string resultado = "";
+
+    for (int i = 0; i < cadena.length(); i++)
+        if (cadena[i]!='a' && cadena[i]!='e' && cadena[i]!='i' && cadena[i]!='o' && cadena[i]!='u')
+            resultado += cadena[i];
+
+    return resultado;
+}
