@@ -1,0 +1,25 @@
+import tkinter as tk
+
+def bienvenida():
+    dato = txt_nombre.get()
+    mensaje["text"] = f"Saludos {dato}"
+
+# Ventana principal
+root = tk.Tk()
+root.title("Saludo Personal")
+root.geometry("320x180")
+
+# Componentes
+titulo = tk.Label(root, text="Ingrese su nombre")
+titulo.pack(pady=10)
+
+txt_nombre = tk.Entry(root)
+txt_nombre.pack(pady=5)
+
+btn = tk.Button(root, text="Mostrar saludo", command=bienvenida)
+btn.pack(pady=10)
+
+mensaje = tk.Label(root, text="", font=("Arial", 12))
+mensaje.pack(pady=10)
+
+root.mainloop()
