@@ -1,0 +1,73 @@
+#include <iostream>
+
+using namespace std;
+
+int main() {
+
+    int menu;
+
+    cout << "===== MENU PRINCIPAL =====" << endl;
+    cout << "1. Operacion de suma" << endl;
+    cout << "2. Comparar dos numeros" << endl;
+    cout << "3. Mostrar secuencia numerica" << endl;
+    cout << "Elija una opcion: ";
+    cin >> menu;
+
+    switch(menu) {
+
+    case 1: {
+
+        double x, y;
+
+        cout << "Ingrese un valor: ";
+        cin >> x;
+
+        cout << "Ingrese otro valor: ";
+        cin >> y;
+
+        cout << "Resultado de la suma: " << x + y << endl;
+        break;
+    }
+
+    case 2: {
+
+        int a, b;
+
+        cout << "Primer numero: ";
+        cin >> a;
+
+        cout << "Segundo numero: ";
+        cin >> b;
+
+        if (a == b)
+            cout << "Los numeros son iguales." << endl;
+        else
+            cout << "El mayor es: " << (a > b ? a : b) << endl;
+
+        break;
+    }
+
+    case 3: {
+
+        int limite;
+
+        cout << "Ingrese el limite: ";
+        cin >> limite;
+
+        int contador = 1;
+
+        while (contador <= limite) {
+            cout << contador << " ";
+            contador++;
+        }
+
+        cout << endl;
+        break;
+    }
+
+    default:
+        cout << "La opcion ingresada no existe." << endl;
+    }
+
+    return 0;
+}
