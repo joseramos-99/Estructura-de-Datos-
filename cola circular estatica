@@ -1,0 +1,125 @@
+.h
+#ifndef FILACIRCULAR_H
+#define FILACIRCULAR_H
+
+#include <iostream>
+using namespace std;
+
+const int LIMITE = 10;
+
+class FilaCircular {
+private:
+    string elementos[LIMITE];
+    int inicio;
+    int ultimo;
+    int total;
+
+public:
+    FilaCircular();
+
+    bool llena();
+    bool vacia();
+
+    bool insertar(string dato);
+    string eliminar();
+
+    void imprimir();
+};
+cpp
+#endif
+#include "FilaCircular.h"
+
+FilaCircular::FilaCircular() {
+    inicio = 0;
+    ultimo = -1;
+    total = 0;
+}
+
+bool FilaCircular::llena() {
+    return total >= LIMITE;
+}
+
+bool FilaCircular::vacia() {
+    return total == 0;
+}
+
+bool FilaCircular::insertar(string dato) {
+
+    if (llena())
+        return false;
+
+    ultimo = (ultimo + 1) % LIMITE;
+    elementos[ultimo] = dato;
+    total++;
+
+    return true;
+}
+
+string FilaCircular::eliminar() {
+
+    if (vacia())
+        return "SIN DATOS";
+
+    string aux = elementos[inicio];
+
+    inicio = (inicio + 1) % LIMITE;
+    total--;
+
+    return aux;
+}
+
+void FilaCircular::imprimir() {
+
+    if (vacia()) {
+        cout << "No existen elementos almacenados.\n";
+        return;
+    }
+
+    cout << "\nElementos registrados:\n";
+
+    int pos = inicio;
+
+    for (int i = 0; i < total; i++) {
+        cout << elementos[pos] << " ";
+        pos = (pos + 1) % LIMITE;
+    }
+
+    cout << endl;
+}
+main 
+#include <iostream>
+#include <sstream>
+#include "FilaCircular.h"
+
+using namespace std;
+
+int main() {
+
+    FilaCircular fila;
+    string texto;
+
+    cout << "Escriba varias palabras: ";
+    getline(cin, texto);
+
+    stringstream lector(texto);
+    string dato;
+
+    while (lector >> dato) {
+
+        if (!fila.insertar(dato)) {
+            cout << "Capacidad maxima alcanzada. "
+                 << dato << " no fue agregado.\n";
+        }
+    }
+
+    fila.imprimir();
+
+    cout << "\nProcesando elementos...\n";
+
+    while (!fila.vacia()) {
+        cout << "Elemento retirado: "
+             << fila.eliminar() << endl;
+    }
+
+    return 0;
+}
