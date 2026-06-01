@@ -1,0 +1,101 @@
+#include <iostream>
+
+using namespace std;
+
+long long calcularFactorial(int num);
+int sumarNaturales(int num);
+int sumarNumerosImpares(int num);
+
+int main() {
+
+    int op;
+
+    while (true) {
+
+        cout << "\n===== MENU DE OPCIONES =====" << endl;
+        cout << "1. Calcular factorial" << endl;
+        cout << "2. Suma de numeros naturales" << endl;
+        cout << "3. Suma de numeros impares" << endl;
+        cout << "0. Terminar programa" << endl;
+        cout << "Opcion: ";
+        cin >> op;
+
+        if (op == 0) {
+            cout << "Fin del programa." << endl;
+            break;
+        }
+
+        int valor;
+
+        switch (op) {
+
+        case 1:
+
+            cout << "Introduzca un numero: ";
+            cin >> valor;
+
+            if (valor < 0)
+                cout << "No se puede calcular factorial para numeros negativos." << endl;
+            else
+                cout << "Resultado: " << calcularFactorial(valor) << endl;
+
+            break;
+
+        case 2:
+
+            cout << "Introduzca un numero: ";
+            cin >> valor;
+
+            if (valor < 0)
+                cout << "Debe ingresar un numero no negativo." << endl;
+            else
+                cout << "Resultado: " << sumarNaturales(valor) << endl;
+
+            break;
+
+        case 3:
+
+            cout << "Introduzca un numero: ";
+            cin >> valor;
+
+            cout << "Resultado: " << sumarNumerosImpares(valor) << endl;
+
+            break;
+
+        default:
+
+            cout << "Opcion incorrecta." << endl;
+        }
+    }
+
+    return 0;
+}
+
+long long calcularFactorial(int num) {
+
+    if (num <= 1)
+        return 1;
+
+    return num * calcularFactorial(num - 1);
+}
+
+int sumarNaturales(int num) {
+
+    if (num == 1)
+        return 1;
+
+    if (num == 0)
+        return 0;
+
+    return num + sumarNaturales(num - 1);
+}
+
+int sumarNumerosImpares(int num) {
+
+    if (num < 1)
+        return 0;
+
+    return (num % 2 != 0)
+           ? num + sumarNumerosImpares(num - 1)
+           : sumarNumerosImpares(num - 1);
+}
