@@ -1,0 +1,184 @@
+import tkinter as tk
+from tkinter import messagebox
+
+
+# ==========================
+# FUNCIONES DE CÁLCULO
+# ==========================
+
+def obtener_porcentaje():
+    try:
+        valor = float(txt_comision.get())
+        return max(valor, 0)
+    except:
+        return 0
+
+
+def calcular_recargo(cantidad):
+    porcentaje = obtener_porcentaje()
+    return cantidad * porcentaje / 100
+
+
+def convertir_bs_a_pen():
+
+    try:
+        monto_bs = float(txt_monto.get())
+        precio_usdt_bs = float(txt_usdt_bs.get())
+        precio_usdt_pen = float(txt_usdt_pen.get())
+
+        usdt = monto_bs / precio_usdt_bs
+        pen = usdt * precio_usdt_pen
+
+        ganancia = calcular_recargo(pen)
+        total = pen + ganancia
+
+        texto_resultado.set(
+            f"RESULTADO\n\n"
+            f"USDT: {usdt:.4f}\n"
+            f"Soles netos: S/ {pen:.2f}\n"
+            f"Comisión: S/ {ganancia:.2f}\n"
+            f"Total: S/ {total:.2f}"
+        )
+
+    except ValueError:
+        messagebox.showwarning(
+            "Datos incorrectos",
+            "Complete todos los campos correctamente."
+        )
+
+
+def convertir_pen_a_bs():
+
+    try:
+        monto_pen = float(txt_monto.get())
+        precio_usdt_bs = float(txt_usdt_bs.get())
+        precio_usdt_pen = float(txt_usdt_pen.get())
+
+        ganancia = calcular_recargo(monto_pen)
+        monto_final = monto_pen + ganancia
+
+        usdt = monto_final / precio_usdt_pen
+        bs = usdt * precio_usdt_bs
+
+        texto_resultado.set(
+            f"RESULTADO\n\n"
+            f"Soles ingresados: S/ {monto_pen:.2f}\n"
+            f"Comisión: S/ {ganancia:.2f}\n"
+            f"Total recibido: S/ {monto_final:.2f}\n"
+            f"USDT requeridos: {usdt:.4f}\n"
+            f"Bolivianos: Bs {bs:.2f}"
+        )
+
+    except ValueError:
+        messagebox.showwarning(
+            "Datos incorrectos",
+            "Complete todos los campos correctamente."
+        )
+
+
+# ==========================
+# VENTANA
+# ==========================
+
+app = tk.Tk()
+app.title("Conversor de Divisas")
+app.geometry("500x700")
+app.configure(bg="#fdf2f8")
+
+
+# ==========================
+# COMPONENTES
+# ==========================
+
+titulo = tk.Label(
+    app,
+    text="Conversor Bs - USDT - PEN",
+    font=("Arial", 18, "bold"),
+    bg="#fdf2f8"
+)
+titulo.pack(pady=20)
+
+
+contenedor = tk.Frame(app, bg="white", padx=20, pady=20)
+contenedor.pack(padx=20, pady=10, fill="both")
+
+
+def crear_campo(etiqueta):
+
+    tk.Label(
+        contenedor,
+        text=etiqueta,
+        bg="white",
+        anchor="w"
+    ).pack(fill="x", pady=(10, 2))
+
+    entrada = tk.Entry(
+        contenedor,
+        justify="center",
+        font=("Arial", 11)
+    )
+
+    entrada.pack(fill="x", ipady=5)
+
+    return entrada
+
+
+txt_monto = crear_campo("Monto")
+txt_usdt_bs = crear_campo("Precio USDT (Bs)")
+txt_usdt_pen = crear_campo("Precio USDT (Soles)")
+txt_comision = crear_campo("Comisión (%)")
+
+txt_comision.insert(0, "0")
+
+
+# ==========================
+# BOTONES
+# ==========================
+
+panel_botones = tk.Frame(contenedor, bg="white")
+panel_botones.pack(pady=20)
+
+tk.Button(
+    panel_botones,
+    text="Bs → Soles",
+    width=15,
+    command=convertir_bs_a_pen
+).grid(row=0, column=0, padx=5)
+
+tk.Button(
+    panel_botones,
+    text="Soles → Bs",
+    width=15,
+    command=convertir_pen_a_bs
+).grid(row=0, column=1, padx=5)
+
+
+# ==========================
+# RESULTADO
+# ==========================
+
+texto_resultado = tk.StringVar()
+texto_resultado.set("Esperando datos...")
+
+tk.Label(
+    contenedor,
+    textvariable=texto_resultado,
+    bg="#f8fafc",
+    font=("Arial", 11),
+    width=35,
+    height=8
+).pack(pady=15)
+
+
+# ==========================
+# PIE DE VENTANA
+# ==========================
+
+tk.Label(
+    app,
+    text="Sistema de conversión financiera",
+    bg="#fdf2f8",
+    font=("Arial", 9)
+).pack(pady=10)
+
+app.mainloop()
