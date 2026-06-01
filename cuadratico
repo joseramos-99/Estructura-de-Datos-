@@ -1,0 +1,75 @@
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+double calcularDelta(int A, int B, int C);
+double raizUnica(int A, int B);
+void obtenerRaicesReales(int A, int B, int C, double &r1, double &r2);
+void obtenerRaicesComplejas(int A, int B, double delta, double &parteReal, double &parteImag);
+
+int main() {
+
+    int A, B, C;
+    double delta;
+    double r1, r2;
+
+    cout << "Ingrese el coeficiente A: ";
+    cin >> A;
+
+    cout << "Ingrese el coeficiente B: ";
+    cin >> B;
+
+    cout << "Ingrese el coeficiente C: ";
+    cin >> C;
+
+    delta = calcularDelta(A, B, C);
+
+    if (delta > 0) {
+
+        obtenerRaicesReales(A, B, C, r1, r2);
+
+        cout << "\nDos soluciones reales distintas:\n";
+        cout << "Raiz 1 = " << r1 << endl;
+        cout << "Raiz 2 = " << r2 << endl;
+
+    } else if (delta == 0) {
+
+        cout << "\nUna sola solucion real:\n";
+        cout << "Raiz = " << raizUnica(A, B) << endl;
+
+    } else {
+
+        double real, imaginaria;
+
+        obtenerRaicesComplejas(A, B, delta, real, imaginaria);
+
+        cout << "\nSoluciones complejas:\n";
+        cout << "Raiz 1 = " << real << " + " << imaginaria << "i" << endl;
+        cout << "Raiz 2 = " << real << " - " << imaginaria << "i" << endl;
+    }
+
+    return 0;
+}
+
+double calcularDelta(int A, int B, int C) {
+    return pow(B, 2) - 4 * A * C;
+}
+
+double raizUnica(int A, int B) {
+    return static_cast<double>(-B) / (2 * A);
+}
+
+void obtenerRaicesReales(int A, int B, int C, double &r1, double &r2) {
+
+    double delta = calcularDelta(A, B, C);
+
+    r1 = (-B + sqrt(delta)) / (2.0 * A);
+    r2 = (-B - sqrt(delta)) / (2.0 * A);
+}
+
+void obtenerRaicesComplejas(int A, int B, double delta, double &parteReal, double &parteImag) {
+
+    parteReal = static_cast<double>(-B) / (2 * A);
+    parteImag = sqrt(-delta) / (2.0 * A);
+}
